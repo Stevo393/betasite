@@ -1,0 +1,44 @@
+<%= form_for(@message) do |f| %>
+  <% if @message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+      <ul>
+      <% @message.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="field">
+    <%= label_tag(:to, "To") %><br>
+    <% if params["to"] %>
+      <%= text_field_tag(:to, params["to"]) %>
+    <% else %>
+      <%= text_field_tag(:to) %>
+    <% end %>
+    <p>Seperate User's email addresses with spaces</p>
+  </div>
+
+  <div class="form-inline">
+    <div class="field form-group form_padding">
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field form-group form_padding">
+      <%= f.label :message_type %><br>
+      <%= f.select :message_type, Message::MESSAGE_TYPES, prompt:"What kind of message is it?" %>
+    </div>
+  </div>
+
+  <div class="field form_padding">
+    <%= f.label :message %><br>
+    <%= f.text_area :message %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+

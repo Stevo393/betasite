@@ -1,0 +1,76 @@
+
+<%= form_for(@fashion) do |f| %>
+  <% if @fashion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fashion.errors.count, "error") %> prohibited this fashion request from being saved:</h2>
+
+      <ul>
+      <% @fashion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field form_padding ">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field form_padding" >
+    <%= f.label :request_description %><br>
+    <%= f.text_area :request_description %>
+  </div>
+
+  <div class="form-inline">
+
+    <div class="field form-group form_padding">
+        <%= f.label :designer_type %><br>
+        <%= f.select :designer_type , Fashion::DESIGNER_TYPES, prompt: "What kind of design do you need?" %>
+    </div>
+    <div class="field form-group form_padding">
+        <%= f.label :style_type %><br>
+        <%= f.select :style_type, Fashion::STYLE_TYPES, prompt: "What kind of style are you making?" %>
+    </div>
+  
+  </div>
+  
+  <div class="form-inline">
+
+    <div class="field form-group form_padding">
+        <%= f.label :sex %><br>
+        <%= f.select :sex, Fashion::SEX_TYPES, prompt: "What kind of sex are you looking for?" %>
+    </div>
+    <div class="field form-group form_padding">
+        <%= f.label :urgency %><br>
+        <%= f.select :urgency, Fashion::URGENCY_TYPES, prompt: "What kind of urgency do you have?" %>
+    </div>
+    
+  </div>
+
+  <div class="form-inline">
+    <div class="field form-group form_padding">
+      <%= f.label :budget %><br>
+      <%= f.text_field :budget %>
+    </div>
+  </div>
+
+  <div class="form-inline">
+    <div class="field form-group form_padding text-center">
+      <%= f.label :reoccuring_order %><br>
+      <%= f.check_box :reoccuring_order  %>
+    </div>
+    <div class="field form_padding">
+      <%= f.label :image_url %><br>
+      <%= f.text_field :image_url %>
+    </div>
+  </div>  
+
+  <div class="actions">
+    <%= f.submit 'Update', class: "btn btn-warning" %>
+  </div>
+
+  <p></p>
+
+<% end %>
+

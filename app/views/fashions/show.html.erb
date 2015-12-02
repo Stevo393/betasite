@@ -1,0 +1,48 @@
+<div class="page-header">
+
+  <!-- Merchant related features - buttons -->
+  <!-- Inclues Edit Request, Delete Request, View Tenants, and Add Tenants -->
+  <% if @user && @user.id == @fashion.user.id %>
+    <%= link_to "Edit This Fashion Request", edit_fashion_path(@fashion), class: 'pull-right btn btn-large btn-info' %>
+    <%= link_to "Delete This Fashion Request", fashion_path(@fashion), method: 'delete', class: 'pull-right btn btn-large btn-danger', data: { confirm: 'Are you sure?' }%>
+  <% end if %>
+
+  <!--   If a user is not signed in, display a mail_to link.  If the a user is logged in and is not the manager, display link to contact form. -->
+  <% if @user.nil? %>
+    <%= mail_to @fashion.user.email, "Contact Merchant", {subject: @fashion.name, class: "pull-right btn btn-large btn-warning"}  %>
+  <% elsif @user.id != @fashion.user.id %>
+    <%= link_to "Contact Merchant", new_message_path(to: @fashion.user.email), class: "pull-right btn btn-large btn-warning" %>
+  <% end %>
+  
+  <br>
+  
+  <h1><%= @fashion.name %></h1>
+</div>
+
+<div class="row">
+
+  <div class="col-md-3">
+    <%= image_tag @fashion.image_url, class: "image-responsive col-md-10"%>
+
+  </div>
+
+
+  <div class="col-md-9">
+    <p class="lead">
+      <strong>Title:</strong>
+      <%= @fashion.name %>
+    </p>
+
+    <p class="lead"><strong>Request Description: </strong><%= @fashion.request_description %></p>
+    <p class="lead"><strong>Budget: </strong><%= number_to_currency(@fashion.budget) %></p>
+    <p class="lead"><strong>Style Type: </strong><%= @fashion.style_type %></p>
+    <p class="lead"><strong>Designer Type: </strong><%= @fashion.designer_type %></p>
+    <p class="lead"><strong>Sex: </strong><%= @fashion.sex %></p>
+    <p class="lead"><strong>Urgency: </strong><%= @fashion.urgency %></p>
+    <p class="lead"><strong>Reoccuring Order: </strong><%= @fashion.reoccuring_order %></p>
+    <p class="lead"><strong>First Posted: </strong><%= @fashion.created_at %></p>
+
+  </div>
+</div>
+
+  

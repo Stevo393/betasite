@@ -1,0 +1,33 @@
+<h1>Listing of All Fashion Requests</h1>
+
+ <% @fashions.each do |fashion| %>
+
+  <div class="row">
+    <div class="col-md-3">
+      <%= link_to(image_tag(fashion.image_url, :alt => "fashion_photo", class: "col-md-10"), fashion_path(fashion.id)) %>
+      
+    </div>
+    <div class="col-md-9">
+      <h2>
+        <%= link_to fashion.name, fashion_path(fashion) %>
+        (<%= number_to_currency(fashion.budget) %>)
+      </h2>
+      
+      <h3>Date Requested: <%= fashion.created_at.to_formatted_s(:long) %></h3>
+      <p class="lead"><%= fashion.request_description %></p>      
+      
+    </div>
+  </div>    
+ <% end %>
+
+ <% if @user && @user.user_type == "Entrepreneur" %>
+    <div>   
+      <br><br>
+    <%= link_to 'New Fashion Request', new_fashion_path, class: "btn btn-success pull-left" %>
+    </div>
+ <% end if %>
+
+
+
+
+
